@@ -29,6 +29,8 @@ with open(path, newline="") as handle:
 def nearest(point, hour):
     target = hour * 3600.0
     row = min(rows, key=lambda r: abs(float(r["t_s"]) - target))
+    delta = abs(float(row["t_s"]) - target)
+    assert delta <= 20.1, (point, hour, "sample_offset_s", delta)
     return float(row[f"{point}_depth_m"])
 
 def arrival(point, threshold=0.002):
